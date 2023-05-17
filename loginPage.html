@@ -14,13 +14,13 @@
       <h2>Login</h2>
       <form id="login-form">
          <div class="input-bx">
-            <input type="email" required>
+            <input type="email" id="email" required>
             <span></span>
             <label for="">Email</label>
             <i class="fa-solid fa-user"></i>
          </div>
          <div class="input-bx">
-            <input type="password" required>
+            <input type="password" id="password" required>
             <span></span>
             <label for="">Password</label>
             <i class="fa-solid fa-user"></i>
@@ -30,40 +30,8 @@
          <button type="submit">Login</button>
       </form>
    </div>
-   <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0" />
-   <script>
-      const { Client } = Appwrite;
-      const client = new Client();
-      client.setEndpoint('http://localhost/v1').setProject('645e5564546a775bb450');
-
-      const loginForm = document.getElementById('login-form');
-
-      loginForm.addEventListener('submit', async (event) => {
-         event.preventDefault();
-
-         const email = document.querySelector('input[type="email"]').value;
-         const password = document.querySelector('input[type="password"]').value;
-
-         try {
-            await client.account.createSession(email, password);
-            const user = await client.account.get();
-
-            if (user.roles.includes('admin')) {
-               // user is an admin, forward to next page
-               window.location.href = 'nextpage.html';
-            } else {
-               // user is not an admin, show error message
-               const cacheBox = document.querySelector('.cache-bx');
-               cacheBox.innerHTML = '<p class="error">You are not an admin</p>';
-            }
-         } catch (error) {
-            console.error(error); // log the error to the console
-         }
-         
-      });
-
-
-   </script>
+   
+   <script type="module" src="login.js"></script>
 
 </body>
 
